@@ -13,28 +13,28 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/Categories', [CategoryController::class,'list']);
-Route::get('/Categories/{id}', [CategoryController::class,'item']);
-Route::get('/Reactions', [ReactionController::class,'list']);
-Route::get('/Reactions/{id}', [ReactionController::class,'item']);
-Route::get('/Comments', [CommentController::class,'list']);
-Route::get('/Comments/{id}', [CommentController::class,'item']);
-Route::get('/Posts', [PostController::class,'list']);
-Route::get('/Posts/{id}', [PostController::class,'item']);
+Route::get('/categories', [CategoryController::class,'list']);
+Route::get('/categories/{id}', [CategoryController::class,'item']);
+Route::get('/reactions', [ReactionController::class,'list']);
+Route::get('/reactions/{id}', [ReactionController::class,'item']);
+Route::get('/comments', [CommentController::class,'list']);
+Route::get('/comments/{id}', [CommentController::class,'item']);
+Route::get('/posts', [PostController::class,'list']);
+Route::get('/posts/{id}', [PostController::class,'item']);
 
-Route::post('/Comments/create', [CommentController::class,'create']);
-Route::post('/Categories/create', [CategoryController::class,'create']);
-Route::post('/Posts/create', [PostController::class,'create']);
-Route::post('AuthController', [ReactionController::class,'create']);
+Route::post('/comments/create', [CommentController::class,'create']);
+Route::post('/categories/create', [CategoryController::class,'create']);
+Route::post('/posts/create', [PostController::class,'create']);
+Route::post('authController', [ReactionController::class,'create']);
 
-Route::post('/Comments/update', [CommentController::class,'update']);
-Route::post('/Categories/update', [CategoryController::class,'update']);
-Route::post('/Posts/update', [PostController::class,'update']);
-Route::post('/Reactions/update', [ReactionController::class,'update']);
+Route::post('/comments/update', [CommentController::class,'update']);
+Route::post('/categories/update', [CategoryController::class,'update']);
+Route::post('/posts/update', [PostController::class,'update']);
+Route::post('/reactions/update', [ReactionController::class,'update']);
 
 Route::post('/login', [AuthController::class,'login']);
-Route::get('/Post/general/{title}', [PostController::class,'general']);
-Route::get('/Post/element/{id}', [PostController::class,'element']);
+Route::get('/post/general/{title}', [PostController::class,'general']);
+Route::get('/post/element/{id}', [PostController::class,'element']);
 
 
 Route::get('/users',[UserController::class, 'list']);
@@ -42,7 +42,7 @@ Route::get('/users/{id}', [UserController::class, 'item']);
 Route::post('/users/create',[UserController::class, 'create']);
 Route::post('/users/update',[UserController::class, 'update']);
 
-Route::get('/Categories/{id}/Posts', [CategoryController::class, 'getPostsByCategory']);
+Route::get('/categories/{id}/posts', [CategoryController::class, 'getPostsByCategory']);
 
 Route::get('/post/user/{id}',[PostController::class, 'PostUser']);
 
