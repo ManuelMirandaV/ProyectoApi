@@ -18,6 +18,7 @@ class CommentController extends Controller
                 "id" => $comment->id,
                 "reaction" => $comment->reaction,
                 "user"=> $comment->user,
+                "date" => $comment->date,
                 "comment" =>$comment->comment,
                 "post_id" => $comment->post_id 
             ];
@@ -33,6 +34,7 @@ class CommentController extends Controller
         $object = [
             "id" => $comment->id,
             "reaction" => $comment->reaction,
+            "date" => $comment->date,
             "user"=> $comment->user,
             "comment" =>$comment->comment,
             "post_id" => $comment->post_id 
@@ -46,6 +48,7 @@ class CommentController extends Controller
         $data = $request->validate([
             'reaction_id' => 'required|min:1',
             'user_id' => 'required|min:1',
+            'date' => 'required|min:1',
             'comment' => 'required|min:3',
             'post_id' => 'required|numeric'
         ]);
@@ -54,6 +57,7 @@ class CommentController extends Controller
             'reaction_id'=>$data['reaction_id'],
             'user_id'=>$data['user_id'],
             'comment'=>$data['comment'],
+            'date'=>$data['date'],
             'post_id'=>$data['post_id'] 
         ]);
 
@@ -75,6 +79,7 @@ class CommentController extends Controller
             'id' => 'required',
             'reaction_id' => 'required',
             'user_id' => 'required',
+            'date' => 'required',
             'comment' => 'required',
             'post_id' => 'required|numeric'
         ]);
@@ -85,6 +90,7 @@ class CommentController extends Controller
             $old = $comment;
             $comment->reaction_id = $data['reaction_id'];
             $comment->comment = $data['comment'];
+            $comment->date = $data['date'];
             $comment->user_id = $data['user_id'];
             $comment->post_id = $data['post_id']; 
 
