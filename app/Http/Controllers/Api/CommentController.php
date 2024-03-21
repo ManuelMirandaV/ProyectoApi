@@ -54,7 +54,7 @@ class CommentController extends Controller
             'reaction_id'=>$data['reaction_id'],
             'user_id'=>$data['user_id'],
             'comment'=>$data['comment'],
-            'posts_id'=>$data['id_post'] 
+            'posts_id'=>$data['posts_id'] 
         ]);
 
         if($comment){
