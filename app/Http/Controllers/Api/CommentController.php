@@ -91,8 +91,8 @@ class CommentController extends Controller
             if($comment->save()){
                 $object = [
                     "respuesta" => 'Éxito. Elemento actualizado correctamente.',
-                    "antiguo" => $old,
-                    "nuevo" => $comment,
+                    "old" => $old,
+                    "new" => $comment,
                 ];
                 return response()->json($object);
             } else {
