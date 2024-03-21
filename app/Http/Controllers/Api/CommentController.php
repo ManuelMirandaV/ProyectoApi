@@ -8,94 +8,101 @@ use App\Models\Comment;
 
 class CommentController extends Controller
 {
-    public function list(){
-
-        $Comments = Comment::all();
+    public function list()
+    {
+        $comments = Comment::all();
         $list =[];
 
-        foreach($Comments as $Comment){
+        foreach($comments as $comment){
             $object = [
-                "id" => $Comment->id,
-                "date" => $Comment->date,
-                "reaction" => $Comment->reaction,
-                "user"=> $Comment->user,
-                "comment" =>$Comment->comment
+                "id" => $comment->id,
+                "reaction" => $comment->reaction,
+                "user"=> $comment->user,
+                "comment" =>$comment->comment,
+                "posts_id" => $comment->posts_id 
             ];
             array_push($list, $object);
         }
         return response()->json($list);
     }
-    public function item($id){
 
-        $Comment = Comment::where('id','=',$id)->first();
+    public function item($id)
+    {
+        $comment = Comment::where('id','=',$id)->first();
 
-            $object = [
-                "id" => $Comment->id,
-                "date" => $Comment->date,
-                "reaction" => $Comment->reaction,
-                "user"=> $Comment->user,
-                "comment" =>$Comment->comment
-            ];
+        $object = [
+            "id" => $comment->id,
+            "reaction" => $comment->reaction,
+            "user"=> $comment->user,
+            "comment" =>$comment->comment,
+            "posts_id" => $comment->posts_id 
+        ];
         
         return response()->json($object);
     }
-    public function create(Request $request){
+
+    public function create(Request $request)
+    {
         $data = $request->validate([
-            'date' => 'required|min:3',
             'reaction_id' => 'required|min:1',
             'user_id' => 'required|min:1',
-            'comment' => 'required|min:3'     
+            'comment' => 'required|min:3',
+            'posts_id' => 'required|numeric'
         ]);
-        $comment = comment::create([
-            'date'=>$data['date'],
+
+        $comment = Comment::create([
             'reaction_id'=>$data['reaction_id'],
             'user_id'=>$data['user_id'],
-            'comment'=>$data['comment']
+            'comment'=>$data['comentario'],
+            'posts_id'=>$data['id_post'] 
         ]);
+
         if($comment){
             return response()->json([
-                'message' => 'Commment publicado',
-                'data' => $comment
-                ]);
-        }
-        else{
+                'mensaje' => 'Comentario publicado',
+                'datos' => $comment
+            ]);
+        } else {
             return response()->json([
-                'message' => 'Comment no publicado',
-                ]);
+                'mensaje' => 'Comentario no publicado',
+            ]);
         }
     }
-    public function update(Request $request){
-        $data = $request -> validate([
+
+    public function update(Request $request)
+    {
+        $data = $request->validate([
             'id' => 'required',
-            'date' => 'required',
             'reaction_id' => 'required',
             'user_id' => 'required',
             'comment' => 'required',
+            'posts_id' => 'required|numeric'
         ]);
-        $Comment = Comment::where('id', '=', $data['id']) ->first();
+
+        $comment = Comment::where('id', '=', $data['id'])->first();
         
-        if($Comment){
-            $old = $Comment;
-            $Comment->date=$data['date'];
-            $Comment->reaction_id=$data['reaction_id'];
-            $Comment->comment=$data['comment'];
-            $Comment->user_id=$data['user_id'];
-            if($Comment->save()){
+        if($comment){
+            $old = $comment;
+            $comment->reaction_id = $data['reaction_id'];
+            $comment->comment = $data['comment'];
+            $comment->user_id = $data['user_id'];
+            $comment->posts_id = $data['posts_id']; 
+
+            if($comment->save()){
                 $object = [
-                    "response" => 'Success. Item updated correctly.',
-                    "old" => $old,
-                    "new" => $Comment,
+                    "respuesta" => 'Éxito. Elemento actualizado correctamente.',
+                    "antiguo" => $old,
+                    "nuevo" => $comment,
                 ];
                 return response()->json($object);
-            }else{
-                $object =[
-                    "response" => 'Error: Somenthing went wrong, please try again.',
+            } else {
+                $object = [
+                    "respuesta" => 'Error: Algo salió mal, por favor inténtalo de nuevo.',
                 ];
             }
-            
-        }else{
-            $object =[
-                "response" => 'Error: Element not found.',
+        } else {
+            $object = [
+                "respuesta" => 'Error: Elemento no encontrado.',
             ];
             return response()->json($object);
         }
