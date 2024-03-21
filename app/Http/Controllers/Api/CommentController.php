@@ -53,7 +53,7 @@ class CommentController extends Controller
         $comment = Comment::create([
             'reaction_id'=>$data['reaction_id'],
             'user_id'=>$data['user_id'],
-            'comment'=>$data['comentario'],
+            'comment'=>$data['comment'],
             'posts_id'=>$data['id_post'] 
         ]);
 
