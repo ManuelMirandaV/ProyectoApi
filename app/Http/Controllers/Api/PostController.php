@@ -24,7 +24,7 @@ class PostController extends Controller
             ];
             array_push($list, $object);
         }
-        return response()->json($list);
+        return response()->json($list); 
     }
     public function item($id){
 
@@ -177,4 +177,24 @@ public function create (Request $request){
         return response()->json($PostData
 );
 }
+public function delete($id) {
+    $post = Post::find($id);
+
+    if (!$post) {
+        return response()->json([
+            'message' => 'Error: Element not found.'
+        ], 404);
+    }
+
+    if ($post->delete()) {
+        return response()->json([
+            'message' => 'Post deleted successfully'
+        ]);
+    } else {
+        return response()->json([
+            'message' => 'Error: Something went wrong while deleting the post.'
+        ], 500);
+    }
+}
+
 }
