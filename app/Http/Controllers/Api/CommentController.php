@@ -19,7 +19,7 @@ class CommentController extends Controller
                 "reaction" => $comment->reaction,
                 "user"=> $comment->user,
                 "comment" =>$comment->comment,
-                "posts_id" => $comment->posts_id 
+                "post_id" => $comment->post_id 
             ];
             array_push($list, $object);
         }
@@ -35,7 +35,7 @@ class CommentController extends Controller
             "reaction" => $comment->reaction,
             "user"=> $comment->user,
             "comment" =>$comment->comment,
-            "posts_id" => $comment->posts_id 
+            "post_id" => $comment->post_id 
         ];
         
         return response()->json($object);
@@ -47,14 +47,14 @@ class CommentController extends Controller
             'reaction_id' => 'required|min:1',
             'user_id' => 'required|min:1',
             'comment' => 'required|min:3',
-            'posts_id' => 'required|numeric'
+            'post_id' => 'required|numeric'
         ]);
 
         $comment = Comment::create([
             'reaction_id'=>$data['reaction_id'],
             'user_id'=>$data['user_id'],
             'comment'=>$data['comment'],
-            'posts_id'=>$data['posts_id'] 
+            'post_id'=>$data['post_id'] 
         ]);
 
         if($comment){
@@ -76,7 +76,7 @@ class CommentController extends Controller
             'reaction_id' => 'required',
             'user_id' => 'required',
             'comment' => 'required',
-            'posts_id' => 'required|numeric'
+            'post_id' => 'required|numeric'
         ]);
 
         $comment = Comment::where('id', '=', $data['id'])->first();
@@ -86,7 +86,7 @@ class CommentController extends Controller
             $comment->reaction_id = $data['reaction_id'];
             $comment->comment = $data['comment'];
             $comment->user_id = $data['user_id'];
-            $comment->posts_id = $data['posts_id']; 
+            $comment->post_id = $data['post_id']; 
 
             if($comment->save()){
                 $object = [
