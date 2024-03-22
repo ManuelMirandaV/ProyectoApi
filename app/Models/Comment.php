@@ -15,7 +15,7 @@ class Comment extends Model
         'reaction_id',
         'user_id',
         'comment',
-        'posts_id',
+        'post_id',
         'date' 
     ];
 
