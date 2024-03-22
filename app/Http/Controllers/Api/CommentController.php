@@ -46,9 +46,9 @@ class CommentController extends Controller
     public function create(Request $request)
     {
         $data = $request->validate([
-            'reaction_id' => 'required|min:1',
-            'user_id' => 'required|min:1',
-            'date' => 'required|min:1',
+            'reaction_id' => 'required|numeric',
+            'user_id' => 'required|numeric',
+            'date' => 'required',
             'comment' => 'required|min:3',
             'post_id' => 'required|numeric'
         ]);
